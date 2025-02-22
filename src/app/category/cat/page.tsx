@@ -17,7 +17,6 @@ export default function CATPage() {
           className="hover:bg-accent/50 transition-all duration-200"
           asChild
         >
-          // Replace <a> with Link
           <Link href="/" className="your-existing-classes">
             Back to Home
           </Link>

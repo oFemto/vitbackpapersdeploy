@@ -260,10 +260,6 @@ export default function Home() {
 
             <AccordionItem value="item-2">
               <AccordionTrigger className="hover:no-underline transition-all duration-200 hover:bg-accent/50 px-4 rounded-lg">Will this page be updated with newer papers?</AccordionTrigger>
-              // Remove unused Image import if not using it
-              // import Image from "next/image"
-              
-              // Fix apostrophe in text
               <AccordionContent className="px-4 pt-2">
                 Yes, I will do my best to add newer papers and new functionalities to this website.
               </AccordionContent>
