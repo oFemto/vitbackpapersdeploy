@@ -4,14 +4,12 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
+import Link from 'next/link';
 
 export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   // Either use imagePreview or remove it if not needed
   // const [imagePreview, setImagePreview] = useState<string | null>(null);
-  
-  // Replace <a> with <Link>
-  import Link from 'next/link'
   
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({

@@ -17,9 +17,9 @@ export default function FATPage() {
           className="hover:bg-accent/50 transition-all duration-200"
           asChild
         >
-          // Replace <a> with Link
           <Link href="/" className="your-existing-classes">
-            Back to Home
+            <ArrowLeft className="h-4 w-4" />
+            Home
           </Link>
         </Button>
         <NavigationMenu className="relative z-10 flex max-w-max flex-1 items-center justify-center ml-4">
@@ -29,16 +29,22 @@ export default function FATPage() {
               <NavigationMenuContent>
                 <div className="grid gap-3 p-4 w-[400px]">
                   <NavigationMenuLink asChild>
-                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/category/cat">
+                    <Link 
+                      href="/category/cat" 
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
                       <div className="text-sm font-medium leading-none">CAT Papers</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">Find all CAT exam papers</p>
-                    </a>
+                    </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/category/fat">
+                    <Link 
+                      href="/category/fat"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
                       <div className="text-sm font-medium leading-none">FAT Papers</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">Find all FAT exam papers</p>
-                    </a>
+                    </Link>
                   </NavigationMenuLink>
                 </div>
               </NavigationMenuContent>
@@ -48,16 +54,22 @@ export default function FATPage() {
               <NavigationMenuContent>
                 <div className="grid gap-3 p-4 w-[400px]">
                   <NavigationMenuLink asChild>
-                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/subject/cse">
+                    <Link 
+                      href="/subject/cse"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
                       <div className="text-sm font-medium leading-none">Computer Science</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">All CSE related papers</p>
-                    </a>
+                    </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/subject/ece">
+                    <Link 
+                      href="/subject/ece"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
                       <div className="text-sm font-medium leading-none">Electronics</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">All ECE related papers</p>
-                    </a>
+                    </Link>
                   </NavigationMenuLink>
                 </div>
               </NavigationMenuContent>

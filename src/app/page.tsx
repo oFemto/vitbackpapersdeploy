@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ChevronDown, Eye, Download } from "lucide-react";
 import { PDFPreviewModal } from "@/components/ui/pdf-preview-modal";
+import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -100,10 +100,13 @@ export default function Home() {
               <NavigationMenuContent>
                 <div className="grid gap-3 p-4 w-[400px]">
                   <NavigationMenuLink asChild>
-                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/category/cat">
+                    <Link 
+                      href="/category/cat" 
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
                       <div className="text-sm font-medium leading-none">CAT Papers</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">Find all CAT exam papers</p>
-                    </a>
+                    </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
                     <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/category/fat">
