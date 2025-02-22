@@ -5,6 +5,7 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link'
 
 export default function FATPage() {
   return (
@@ -16,9 +17,10 @@ export default function FATPage() {
           className="hover:bg-accent/50 transition-all duration-200"
           asChild
         >
-          <a href="/" className="flex items-center justify-center">
-            <ArrowLeft className="h-4 w-4" />
-          </a>
+          // Replace <a> with Link
+          <Link href="/" className="your-existing-classes">
+            Back to Home
+          </Link>
         </Button>
         <NavigationMenu className="relative z-10 flex max-w-max flex-1 items-center justify-center ml-4">
           <NavigationMenuList>

@@ -7,7 +7,12 @@ import { Upload } from "lucide-react";
 
 export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  // Either use imagePreview or remove it if not needed
+  // const [imagePreview, setImagePreview] = useState<string | null>(null);
+  
+  // Replace <a> with <Link>
+  import Link from 'next/link'
+  
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     subjectCode: "",
