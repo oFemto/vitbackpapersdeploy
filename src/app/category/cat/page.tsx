@@ -27,7 +27,7 @@ export default function CATPage() {
             <NavigationMenuItem>
               <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
               <NavigationMenuContent>
-                // Inside NavigationMenuContent
+                {/* Inside NavigationMenuContent */}
                 <div className="grid gap-3 p-4 w-[400px]">
                   <NavigationMenuLink asChild>
                     <Link 
@@ -53,7 +53,7 @@ export default function CATPage() {
             <NavigationMenuItem>
               <NavigationMenuTrigger>Subjects</NavigationMenuTrigger>
               <NavigationMenuContent>
-                // ... and in the Subjects section
+                {/* ... and in the Subjects section */}
                 <NavigationMenuLink asChild>
                   <Link 
                     href="/subject/cse"

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { writeFile, mkdir, access } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 import * as fs from 'fs/promises';
 import { join } from 'path';
 

@@ -4,13 +4,9 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
-import Link from 'next/link';
 
 export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  // Either use imagePreview or remove it if not needed
-  // const [imagePreview, setImagePreview] = useState<string | null>(null);
-  
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     subjectCode: "",
@@ -28,11 +24,6 @@ export default function UploadPage() {
         return;
       }
       setSelectedFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -83,16 +74,6 @@ export default function UploadPage() {
 
   return (
     <div className="min-h-screen bg-background p-8 pb-20 gap-8 sm:p-20">
-      <nav className="flex items-center gap-4 absolute top-2 left-4 sm:top-4 sm:left-8">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="transition-all hover:scale-105"
-          asChild
-        >
-          <a href="/">← Home</a>
-        </Button>
-      </nav>
       <main className="max-w-2xl mx-auto space-y-8">
         <div className="space-y-4 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <h1 className="text-4xl font-bold tracking-tight">Upload Exam Paper</h1>

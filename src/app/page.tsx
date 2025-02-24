@@ -257,7 +257,7 @@ export default function Home() {
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:no-underline transition-all duration-200 hover:bg-accent/50 px-4 rounded-lg">Is it only for backlog papers?</AccordionTrigger>
               <AccordionContent className="px-4 pt-2">
-                Yes, it is only for back papers. If you want non-backlog papers, you can check out VIT codechef's page.
+                Yes, it is only for back papers. If you want non-backlog papers, you can check out VIT codechef&apos;s page.
               </AccordionContent>
             </AccordionItem>
 
