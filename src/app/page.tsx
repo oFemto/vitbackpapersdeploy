@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ChevronDown, Eye, Download } from "lucide-react";
 import { PDFPreviewModal } from "@/components/ui/pdf-preview-modal";
-import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -22,26 +22,20 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const PaperSkeleton = () => (
-  <div className="p-6 border rounded-lg animate-pulse">
-    <div className="flex justify-between items-start">
-      <div className="space-y-2">
-        <div className="h-6 w-48 bg-muted rounded" />
-        <div className="h-4 w-32 bg-muted rounded" />
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="h-8 w-8 bg-muted rounded" />
-        <div className="h-8 w-8 bg-muted rounded" />
-        <div className="h-6 w-16 bg-muted rounded-full" />
-      </div>
-    </div>
-  </div>
-);
+interface Paper {
+  id: string;
+  subjectCode: string;
+  title: string;
+  examType: string;
+  semester: string;
+  year: number;
+  filePath: string;
+  views: number;
+}
 
 export default function Home() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [error, setError] = React.useState('');
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -54,41 +48,32 @@ export default function Home() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const [papers, setPapers] = React.useState([]);
+  const [papers, setPapers] = React.useState<Paper[]>([]);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    const controller = new AbortController();
     async function fetchPapers() {
       try {
-        setLoading(true);
-        setError('');
-        const response = await fetch('/api/papers', { signal: controller.signal });
-        if (!response.ok) throw new Error('Failed to fetch papers');
+        const response = await fetch('/api/papers');
         const data = await response.json();
         setPapers(data);
       } catch (error) {
-        if (error.name === 'AbortError') return;
         console.error('Error fetching papers:', error);
-        setError('Failed to load papers. Please try again later.');
       } finally {
         setLoading(false);
       }
     }
     fetchPapers();
-    return () => controller.abort();
   }, []);
 
   const filteredPapers = React.useMemo(() => {
     if (!searchTerm.trim()) return papers;
     const searchLower = searchTerm.toLowerCase();
     return papers.filter((paper) => 
-      paper.subjectCode?.toLowerCase().includes(searchLower) ||
-      paper.title?.toLowerCase().includes(searchLower)
+      paper.subjectCode.toLowerCase().includes(searchLower) ||
+      paper.title.toLowerCase().includes(searchLower)
     );
   }, [papers, searchTerm]);
-
-  const [selectedPaper, setSelectedPaper] = React.useState<{ url: string } | null>(null);
 
   return (
     <div className="min-h-screen bg-background p-8 pb-20 gap-8 sm:p-20 relative">
@@ -100,13 +85,10 @@ export default function Home() {
               <NavigationMenuContent>
                 <div className="grid gap-3 p-4 w-[400px]">
                   <NavigationMenuLink asChild>
-                    <Link 
-                      href="/category/cat" 
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
+                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/category/cat">
                       <div className="text-sm font-medium leading-none">CAT Papers</div>
                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">Find all CAT exam papers</p>
-                    </Link>
+                    </a>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
                     <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" href="/category/fat">
@@ -184,13 +166,19 @@ export default function Home() {
                   <div className="py-1">
                     <button 
                       className="w-full px-4 py-2 text-sm text-left hover:bg-accent/50 transition-colors"
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {
+                        // Add sorting logic here
+                        setIsOpen(false);
+                      }}
                     >
                       Most viewed
                     </button>
                     <button 
                       className="w-full px-4 py-2 text-sm text-left hover:bg-accent/50 transition-colors"
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {
+                        // Add sorting logic here
+                        setIsOpen(false);
+                      }}
                     >
                       Random
                     </button>
@@ -201,48 +189,25 @@ export default function Home() {
           </div>
 
           <div className="grid gap-4">
-            {error ? (
-              <div className="text-center text-red-500">{error}</div>
-            ) : loading ? (
-              <>
-                <PaperSkeleton />
-                <PaperSkeleton />
-                <PaperSkeleton />
-              </>
+            {loading ? (
+              <div className="text-center text-muted-foreground">Loading papers...</div>
             ) : filteredPapers.length === 0 ? (
               <div className="text-center text-muted-foreground">
                 {papers.length === 0 ? 'No papers found' : 'No matching papers found'}
               </div>
             ) : (
               filteredPapers.map((paper) => (
-                <div key={paper.id} className="p-6 border rounded-lg hover:bg-accent/50 transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-lg">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold text-lg">{paper.subjectCode} - {paper.title}</h3>
-                      <p className="text-sm text-muted-foreground mt-1">{paper.examType} - {paper.semester} {paper.year}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="hover:bg-accent/50"
-                        onClick={() => setSelectedPaper({ url: paper.filePath })}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <a href={paper.filePath} target="_blank" rel="noopener noreferrer">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="hover:bg-accent/50"
-                        >
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      </a>
+                <a href={paper.filePath} target="_blank" rel="noopener noreferrer" key={paper.id}>
+                  <div className="p-6 border rounded-lg hover:bg-accent/50 transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-lg">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-semibold text-lg">{paper.subjectCode} - {paper.title}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">{paper.examType} - {paper.semester} {paper.year}</p>
+                      </div>
                       <p className="text-sm text-muted-foreground bg-muted/30 px-3 py-1 rounded-full">{paper.views} views</p>
                     </div>
                   </div>
-                </div>
+                </a>
               ))
             )}
           </div>
@@ -257,7 +222,7 @@ export default function Home() {
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:no-underline transition-all duration-200 hover:bg-accent/50 px-4 rounded-lg">Is it only for backlog papers?</AccordionTrigger>
               <AccordionContent className="px-4 pt-2">
-                Yes, it is only for back papers. If you want non-backlog papers, you can check out VIT codechef&apos;s page.
+                Yes, it is only for back papers. If you want non-backlog papers, you can check out VIT codechef's page.
               </AccordionContent>
             </AccordionItem>
 
@@ -372,13 +337,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      <PDFPreviewModal
-        isOpen={!!selectedPaper}
-        onClose={() => setSelectedPaper(null)}
-        paperUrl={selectedPaper?.url ?? ''}
-        onDownload={() => window.open(selectedPaper?.url, '_blank')}
-      />
     </div>
   );
 }

@@ -67,16 +67,11 @@ export async function GET() {
   try {
     const papers = await prisma.paper.findMany({
       orderBy: {
-        views: 'desc',
-      },
-    });
-
-    return NextResponse.json(papers);
+        views: 'desc'
+      }
+    })
+    return NextResponse.json(papers)
   } catch (error) {
-    console.error('Error fetching papers:', error);
-    return NextResponse.json(
-      { error: 'Error fetching papers' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch papers' }, { status: 500 })
   }
 }
